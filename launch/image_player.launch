@@ -1,0 +1,6 @@
+<launch>
+    <!--play ros bag-->
+    <node pkg="image_player" name="image_player" type="image_player" output="screen">
+        <param name="test" type="string" value="tt"/>
+    </node>
+</launch>
