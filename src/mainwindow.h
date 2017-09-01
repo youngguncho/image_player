@@ -26,7 +26,7 @@
 #include <opencv2/core.hpp>
 
 #include "rosthread.h"
-#include "cvqtUtils.h"
+#include "image_player/data_manager.h"
 
 
 
@@ -36,45 +36,58 @@ class MainWindow;
 
 class MainWindow : public QMainWindow
 {
-  Q_OBJECT
+    Q_OBJECT
 
 public:
-  explicit MainWindow(QWidget *parent = 0);
-  ~MainWindow();
+    explicit MainWindow(QWidget *parent = 0);
+    ~MainWindow();
 
-  void ros_init(ros::NodeHandle nh, ros::NodeHandle private_nh);
+    void ros_init(ros::NodeHandle &nh, ros::NodeHandle &private_nh);
 
-  QTimer *timer;
-  RosThread *rosth;
+    QTimer *timer;
+    RosThread *rosth;
 
 public slots:
-  void timer_slot();
+    void timer_slot();
+
+    void on_idx_slider_sliderReleased();
+
+    void on_idx_slider_sliderPressed();
+
+    void on_framerate_box_editingFinished();
+
+    void on_idx_slider_valueChanged(int value);
 
 private:
-  Ui::MainWindow *ui;
+    Ui::MainWindow *ui;
 
-  int image_idx_;
-  QDir image_dir_;
-  QStringList image_list_;
+    DataManager dm_;
+
+    // image related
+    int image_idx_;
+    QDir image_dir_;
+    QStringList image_list_;
 
 
-  cv::Mat image_;
-  QPixmap image_qt_;
-  sensor_msgs::CameraInfo cam_info_;
+    cv::Mat image_;
+    QPixmap image_qt_;
+    sensor_msgs::CameraInfo cam_info_;
 
-  ros::NodeHandle nh_;
-  ros::Publisher image_pub_;
-  ros::Publisher cam_info_pub_;
+    ros::NodeHandle nh_;
+    ros::NodeHandle private_nh_;
 
-  void prepare_image();
-  void prepare_cam_info();
+    ros::Publisher image_pub_;
+    ros::Publisher cam_info_pub_;
 
-  void publish_image();
-  void publish_camera_info();
+    void prepare_image();
+    void prepare_cam_info();
 
-  void natural_sort(QStringList &list);
+    void publish_image();
+    void publish_camera_info();
 
-  void print_file_list(QStringList list);
+    void natural_sort(QStringList &list);
+
+    void print_file_list(QStringList list);
 
 };
 

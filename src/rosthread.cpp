@@ -1,14 +1,22 @@
 #include "rosthread.h"
 
 
-RosThread::RosThread(QObject *parent)
+RosThread::RosThread(QObject *parent, ros::NodeHandle &pnh)
+    : pnh_(pnh), cfg_server_(pnh)
 {
     img_subs_ = nh_.subscribe<sensor_msgs::Image>("zed/left/image_rect_color", 2, boost::bind(&RosThread::image_callback, this, _1));
+    cfg_server_.setCallback(boost::bind(&RosThread::config_callback, this, _1, _2));
+
 }
 
 void RosThread::run()
 {
-    ros::spin();
+  ros::spin();
+}
+
+void RosThread::config_callback(image_player::image_playerConfig &config, int level)
+{
+    cout << "dyn config " << config.test2 << endl;
 }
 
 void

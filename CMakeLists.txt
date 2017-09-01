@@ -15,11 +15,11 @@ set (SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 # Find the Qt libraries
 find_package(catkin REQUIRED COMPONENTS
-  roscpp
-  std_msgs
-  image_transport
-  cv_bridge
-  dynamic_reconfigure
+    roscpp
+    std_msgs
+    image_transport
+    cv_bridge
+    dynamic_reconfigure
 )
 
 set(CMAKE_AUTOMOC ON)
@@ -29,24 +29,31 @@ find_package (Qt5Gui)
 find_package (OpenCV REQUIRED)
 
 set (SRC
-  src/main.cpp
-  src/mainwindow.cpp src/mainwindow.h
-  src/rosthread.cpp src/rosthread.h
-  src/cvqtUtils.cpp src/cvqtUtils.h
+    src/main.cpp
+    src/mainwindow.cpp src/mainwindow.h
+    src/rosthread.cpp src/rosthread.h
+    src/data_manager.cpp
+)
+
+generate_dynamic_reconfigure_options(
+    cfg/image_player.cfg
+  #...
 )
 
 catkin_package(
     CATKIN_DEPENDS roscpp std_msgs image_transport cv_bridge dynamic_reconfigure
     DEPENDS OpenCV
+    INCLUDE_DIRS include
     LIBRARIES ${PROJECT_NAME}
 )
 
 include_directories(
-  include
-  ${catkin_INCLUDE_DIRS}
-  ${CMAKE_CURRENT_BINARY_DIR}
-  ${SRC_DIR}
+    include
+    ${catkin_INCLUDE_DIRS}
+    ${CMAKE_CURRENT_BINARY_DIR}
+    ${SRC_DIR}
 )
+
 
 # add UI file
 qt5_wrap_ui (image_player_ui_moc ${SRC_DIR}/mainwindow.ui)
