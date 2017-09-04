@@ -58,6 +58,9 @@ public slots:
 
     void on_idx_slider_valueChanged(int value);
 
+private slots:
+    void on_start_button_clicked(bool checked);
+
 private:
     Ui::MainWindow *ui;
 

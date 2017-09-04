@@ -33,7 +33,7 @@ void MainWindow::ros_init(ros::NodeHandle &nh, ros::NodeHandle &private_nh)
 
     image_pub_ = nh_.advertise<sensor_msgs::Image>(dm_.image_name(), 2);
     cam_info_pub_ = nh_.advertise<sensor_msgs::CameraInfo>(dm_.image_info_name(), 2);
-    timer->start(dm_.frameduration());
+    // timer->start(dm_.frameduration());
 
 
     this->ui->idx_slider->setRange(0, dm_.end_idx());
@@ -100,4 +100,18 @@ void MainWindow::on_framerate_box_editingFinished()
     timer->stop();
     dm_.framerate(static_cast<double>(value));
     timer->start(dm_.frameduration());
+}
+
+void MainWindow::on_start_button_clicked(bool checked)
+{
+    if (checked) {
+        this->ui->start_button->setCheckable(false);
+        timer->stop();
+        this->ui->start_button->setText(QString("START"));
+    }
+    else {
+        this->ui->start_button->setCheckable(true);
+        timer->start(dm_.frameduration());
+        this->ui->start_button->setText(QString("PAUSE"));
+    }
 }
