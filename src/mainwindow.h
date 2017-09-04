@@ -12,6 +12,7 @@
 #include <QThread>
 #include <QFileInfoList>
 #include <QCollator>
+#include <QKeyEvent>
 
 #include <iostream>
 #include <algorithm>
@@ -58,8 +59,11 @@ public slots:
 
     void on_idx_slider_valueChanged(int value);
 
+    void keyPressEvent(QKeyEvent *event);
+
 private slots:
     void on_start_button_clicked(bool checked);
+
 
 private:
     Ui::MainWindow *ui;
@@ -82,6 +86,7 @@ private:
     ros::Publisher image_pub_;
     ros::Publisher cam_info_pub_;
 
+
     void prepare_image();
     void prepare_cam_info();
 
@@ -89,7 +94,6 @@ private:
     void publish_camera_info();
 
     void natural_sort(QStringList &list);
-
     void print_file_list(QStringList list);
 
 };

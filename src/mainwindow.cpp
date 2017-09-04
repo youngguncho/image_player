@@ -115,3 +115,8 @@ void MainWindow::on_start_button_clicked(bool checked)
         this->ui->start_button->setText(QString("PAUSE"));
     }
 }
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    qDebug("keyPressEvent(%x)", event->key());
+}
