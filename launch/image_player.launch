@@ -1,9 +1,9 @@
 <launch>
     <!--play ros bag-->
     <node pkg="image_player" name="image_player" type="image_player" output="screen">
-        <param name="file_path" type="string" value="/mnt/data/Dataset/kitti/dataset/sequences/10/image_0/"/>
+        <param name="file_path" type="string" value="/mnt/data/Dataset/rgbd-dataset/ICL-NUIM/livingroom2/rgb/"/>
         <param name="file_ext" type="string" value="png"/>
         <param name="name" type="string" value="image"/>        
-        <param name="framerate" type="double" value="10"/>
+        <param name="framerate" type="double" value="20"/>
     </node>
 </launch>

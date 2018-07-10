@@ -12,7 +12,7 @@ DataManager::initialize(ros::NodeHandle& private_nh)
 
     // get ros params
     std::string root_dir, file_ext;
-    private_nh_.param("file_path", root_dir, std::string("/mnt/data/Dataset/kitti/dataset/sequences/10/image_0/"));
+    private_nh_.param("file_path", root_dir, std::string("/mnt/data/Dataset/vkitti/vkitti_1.3.1_rgb/0001/clone/"));
     private_nh_.param("file_ext", file_ext, std::string("png"));
     private_nh_.param("name", image_name_, std::string("image"));
     private_nh_.param("framerate", framerate_, 10.0);
@@ -121,17 +121,18 @@ void DataManager::prepare_cam_info()
     camera_info_.D.resize(5, 0.0);
     // Give a reasonable default intrinsic camera matrix
 
-    camera_info_.K = boost::assign::list_of(481.20) (0.0) (319.50)
-                                           (0.0) (480.0) (239.50)
-                                           (0.0) (0.0) (1.0);
-    // Give a reasonable default rectification matrix
-    camera_info_.R = boost::assign::list_of (1.0) (0.0) (0.0)
-                                            (0.0) (1.0) (0.0)
-                                            (0.0) (0.0) (1.0);
-    // Give a reasonable default projection matrix
-    camera_info_.P = boost::assign::list_of (481.20) (0.0) (319.50) (0.0)
-                                            (0.0) (480.00) (239.50) (0.0)
-                                            (0.0) (0.0) (1.0) (0.0);
+
+//    camera_info_.K = boost::assign::list_of(481.20) (0.0) (319.50)
+//                                           (0.0) (480.0) (239.50)
+//                                           (0.0) (0.0) (1.0);
+//    // Give a reasonable default rectification matrix
+//    camera_info_.R = boost::assign::list_of (1.0) (0.0) (0.0)
+//                                            (0.0) (1.0) (0.0)
+//                                            (0.0) (0.0) (1.0);
+//    // Give a reasonable default projection matrix
+//    camera_info_.P = boost::assign::list_of (481.20) (0.0) (319.50) (0.0)
+//                                            (0.0) (480.00) (239.50) (0.0)
+//                                            (0.0) (0.0) (1.0) (0.0);
 
 
   //  cam_info_.K = boost::assign::list_of(538.7) (0.0) (319.2)
@@ -145,6 +146,19 @@ void DataManager::prepare_cam_info()
   //  cam_info_.P = boost::assign::list_of (583.7) (0.0) (319.20) (0.0)
   //                                          (0.0) (540.70) (233.60) (0.0)
   //                                          (0.0) (0.0) (1.0) (0.0);
+  
+    camera_info_.K = boost::assign::list_of(725.0) (0.0) (620.5)
+                                           (0.0) (725.0) (187.0)
+                                           (0.0) (0.0) (1.0);
+    // Give a reasonable default rectification matrix
+    camera_info_.R = boost::assign::list_of (1.0) (0.0) (0.0)
+                                            (0.0) (1.0) (0.0)
+                                            (0.0) (0.0) (1.0);
+    // Give a reasonable default projection matrix
+    camera_info_.P = boost::assign::list_of (725.0) (0.0) (620.50) (0.0)
+                                            (0.0) (725.00) (187.00) (0.0)
+                                            (0.0) (0.0) (1.0) (0.0);
+
 
 }
 
